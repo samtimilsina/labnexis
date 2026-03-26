@@ -1,0 +1,161 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Our Team - Lab Nexis</title> 
+    <script src="https://cdn.tailwindcss.com"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    
+    <script> 
+        tailwind.config = { 
+            theme: { 
+                extend: { 
+                    colors: { primary: "#2563eb", secondary: "#7c3aed", dark: "#0f172a", light: "#f8fafc" },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                } 
+            } 
+        } 
+    </script> 
+    <style>
+        .gradient-bg { background: radial-gradient(circle at top right, #f5f3ff 0%, #ffffff 50%, #eff6ff 100%); }
+
+        /* Reveal: only opacity + translate, NO filter at all */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.1);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .image-container:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 50px 90px -20px rgba(37, 99, 235, 0.2);
+        }
+
+        /* PHOTOS: always full color, filter: none !important everywhere */
+        .image-container img,
+        .image-container:hover img,
+        .reveal img,
+        .reveal.active img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: none !important;
+            -webkit-filter: none !important;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .image-container:hover img {
+            transform: scale(1.08);
+        }
+
+        .nav-link { position: relative; transition: color 0.3s ease; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -4px; left: 0; background: linear-gradient(to right, #7c3aed, #2563eb);
+            transition: width 0.3s ease; border-radius: 2px;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover { color: #7c3aed; }
+    </style>
+</head> 
+<body class="bg-white font-sans text-gray-900">
+
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100"> 
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center"> 
+            <a href="home.html" class="flex items-center space-x-3 group"> 
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-secondary to-primary flex items-center justify-center text-white font-black shadow-lg">LN</div> 
+                <h1 class="text-2xl font-extrabold text-dark"><span class="text-secondary">Lab</span> <span class="text-primary">Nexis</span></h1> 
+            </a> 
+            <nav class="hidden lg:flex items-center space-x-10 font-bold text-gray-500 text-sm"> 
+                <ul class="flex items-center space-x-10">
+                    <li><a href="home.html" class="nav-link">Home</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="members.html" class="nav-link text-secondary font-black">Members</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <a href="home.html#login" class="bg-gradient-to-r from-secondary to-primary text-white px-8 py-2.5 rounded-full font-extrabold shadow-md">Login</a>
+            </nav> 
+        </div> 
+    </header>
+
+    <section class="gradient-bg py-20 border-b border-gray-50">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <span class="text-primary font-bold tracking-[0.2em] uppercase text-[10px]">The Team</span>
+            <h1 class="text-5xl md:text-7xl font-black text-dark mt-4 mb-8 tracking-tighter italic">Who are we?</h1>
+            <div class="bg-white/40 backdrop-blur-xl p-8 md:p-12 rounded-[3.5rem] border border-white shadow-2xl">
+                <p class="text-gray-600 text-lg md:text-xl leading-relaxed font-medium">
+                    Lab Nexis is a team of <span class="text-dark font-bold">engineers, scientists, and health-data experts</span> dedicated to building digital lab systems that fit real-world workflows. We bring CAP/CLIA-aware rigor to QMS/LRS portals, bioinformatics pipelines, predictive models, and practical AI assistants with human-in-the-loop oversight. We focus on outcomes: <span class="text-primary font-bold italic underline decoration-primary/20 decoration-2">cleaner data, faster reviews, and audit-ready evidence.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="space-y-48">
+                
+                <div class="flex flex-col md:flex-row items-center gap-16 md:gap-24 reveal">
+                    <div class="w-full md:w-5/12">
+                        <div class="image-container aspect-[3/4] rounded-[3.5rem] rotate-[-2deg]">
+                           <img src="image/mohan.png" alt="Dr. Mohan Timilsina">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-7/12">
+                        <span class="text-primary font-black text-xs uppercase tracking-[0.2em] bg-blue-50 px-3 py-1 rounded-full">Ph.D. Computer Science</span>
+                        <h3 class="text-4xl font-black text-dark mt-4 mb-4">Dr. Mohan Timilsina</h3>
+                        <p class="text-secondary font-bold text-sm italic mb-6">President and Principal Data Scientist</p>
+                        <div class="text-gray-500 text-sm leading-relaxed space-y-4 font-medium">
+                            <p>Dr. Timilsina is a trained computer science professional with nearly nine years of computational research and industry experience. He most recently served as a Senior Postdoctoral Researcher at the Data Science Institute, University of Galway. He received a Ph.D. in Computer Science from the University of Galway, Ireland in 2020.</p>
+                            <p>His work centers on applied machine learning for tabular and networked data, with expertise spanning supervised and semi-supervised learning, knowledge graphs, and network mining (GNNs). Much of his research is applied to bioinformatics and medical informatics, focusing on building robust, interpretable models that integrate cleanly with real-world compliance requirements.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row-reverse items-center gap-16 md:gap-24 reveal">
+                    <div class="w-full md:w-5/12">
+                        <div class="image-container aspect-[3/4] rounded-[3.5rem] rotate-[2deg]">
+                            <img src="image/meera.png" alt="Dr. Meera Tandan">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-7/12">
+                        <span class="text-primary font-black text-xs uppercase tracking-[0.2em] bg-blue-50 px-3 py-1 rounded-full">Ph.D. Medicine (Public Health)</span>
+                        <h3 class="text-4xl font-black text-dark mt-4 mb-4">Dr. Meera Tandan</h3>
+                        <p class="text-secondary font-bold text-sm italic mb-6">Partner and Strategist</p>
+                        <div class="text-gray-500 text-sm leading-relaxed space-y-4 font-medium">
+                            <p>Dr. Tandan is a public health professional and Lead Analyst at the Kidney Epidemiology and Cost Center (KECC), University of Michigan. She previously served as a Newman Research Fellow in the School of Medicine at University College Dublin (UCD). She holds a Ph.D. from the National University of Ireland Galway.</p>
+                            <p>Her work spans chronic disease management, antimicrobial prescribing, and resistance in long-term care facilities. At KECC, she leads analytic projects that inform population health, quality improvement, and evidence-based decision-making for large-scale healthcare environments.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 bg-white border-t border-gray-100 text-center">
+        <p class="text-gray-400 text-[10px] font-black tracking-[0.4em] uppercase">&copy; 2026 Lab Nexis. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>

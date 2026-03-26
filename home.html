@@ -1,0 +1,487 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Lab Nexis - AI & Bioinformatics</title> 
+    <script src="https://cdn.tailwindcss.com"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    
+    <script> 
+        tailwind.config = { 
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: "#2563eb",   
+                        secondary: "#7c3aed", 
+                        dark: "#0f172a", 
+                        light: "#f8fafc" 
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                } 
+            } 
+        } 
+    </script> 
+    <style> 
+        .gradient-bg { background: radial-gradient(circle at top right, #f5f3ff 0%, #ffffff 50%, #eff6ff 100%); } 
+        html { scroll-behavior: smooth; }
+
+        /* Page transition */
+        body { opacity: 0; transition: opacity 0.4s ease; }
+        body.loaded { opacity: 1; }
+        .page-fade-out { opacity: 0 !important; transition: opacity 0.3s ease !important; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link { position: relative; transition: color 0.3s ease; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -4px; left: 0; background: linear-gradient(to right, #7c3aed, #2563eb);
+            transition: width 0.3s ease; border-radius: 2px;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover { color: #7c3aed; }
+
+        /* Mobile menu */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+            opacity: 0;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+        .hamburger span {
+            display: block; width: 22px; height: 2px;
+            background: #0f172a; border-radius: 2px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        @keyframes cart-shake {
+            0% { transform: rotate(0); }
+            25% { transform: rotate(12deg); }
+            75% { transform: rotate(-12deg); }
+            100% { transform: rotate(0); }
+        }
+        .cart-btn:hover .fa-shopping-cart { animation: cart-shake 0.4s ease-in-out infinite; }
+
+        @keyframes badge-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .badge-anim { animation: badge-pulse 2s infinite; }
+
+        @keyframes login-shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+            100% { transform: translateX(0); }
+        }
+        .login-btn:hover {
+            animation: login-shake 0.3s ease-in-out;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+        }
+
+        .service-card { 
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5); 
+            background: white;
+            overflow: hidden;
+        }
+        .service-card:hover { 
+            transform: translateY(-12px); 
+            box-shadow: 0 40px 80px -15px rgba(15, 23, 42, 0.1); 
+            border-color: #7c3aed33; 
+        }
+        .service-card:hover img { transform: scale(1.1); }
+        .service-card:hover .icon-box { transform: rotate(10deg); background: linear-gradient(135deg, #7c3aed, #2563eb); color: white; }
+
+        .social-icon {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; align-items: center; justify-content: center;
+            width: 42px; height: 42px; background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px; color: #64748b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .social-icon:hover { transform: translateY(-5px); color: white; border-color: transparent; }
+        .social-icon.facebook:hover { background-color: #1877F2; box-shadow: 0 10px 20px -5px rgba(24, 119, 242, 0.5); }
+        .social-icon.twitter:hover { background-color: #1DA1F2; box-shadow: 0 10px 20px -5px rgba(29, 161, 242, 0.5); }
+        .social-icon.linkedin:hover { background-color: #0077B5; box-shadow: 0 10px 20px -5px rgba(0, 119, 181, 0.5); }
+        .social-icon.instagram:hover { 
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+            box-shadow: 0 10px 20px -5px rgba(220, 39, 67, 0.5);
+        }
+
+        .trust-bar {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(124,58,237,0.15);
+            border-radius: 9999px;
+            padding: 8px 24px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            color: #6b7280;
+        }
+        .trust-bar span.dot { margin: 0 12px; color: #c4b5fd; font-size: 0.6rem; }
+        .trust-bar span.tag { color: #374151; }
+
+        /* Hero image float animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-16px); }
+        }
+        .hero-image-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Hero image reveal */
+        .hero-img-reveal {
+            opacity: 0;
+            transform: translateX(60px) scale(0.95);
+            transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-img-reveal.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+
+        /* Hero text reveal */
+        .hero-text-reveal {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-text-reveal.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .img-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .img-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glow behind hero image */
+        .hero-glow {
+            position: absolute;
+            inset: -20%;
+            background: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, rgba(37,99,235,0.08) 50%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style> 
+</head> 
+<body class="font-sans text-gray-900 bg-white"> 
+
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100"> 
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center"> 
+            <a href="home.html" class="flex items-center space-x-3 group"> 
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-secondary to-primary flex items-center justify-center text-white font-black shadow-lg">LN</div> 
+                <h1 class="text-2xl font-extrabold tracking-tight text-dark"><span class="text-secondary">Lab</span> <span class="text-primary">Nexis</span></h1> 
+            </a> 
+
+            <!-- Desktop nav -->
+            <nav class="hidden lg:flex items-center space-x-10 font-bold text-gray-500 text-sm"> 
+                <ul class="flex items-center space-x-10">
+                    <li><a href="home.html" class="nav-link text-secondary font-black">Home</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="members.html" class="nav-link">Members</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="flex items-center space-x-8 border-l border-gray-100 pl-8">
+                    <a href="#cart" class="cart-btn relative text-gray-400 transition-colors hover:text-secondary">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span class="badge-anim absolute -top-2 -right-2 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </a>
+                    <a href="#login" class="login-btn bg-gradient-to-r from-secondary to-primary text-white px-8 py-2.5 rounded-full font-extrabold shadow-md transition-all duration-300">Login</a>
+                </div>
+            </nav>
+
+            <!-- Mobile hamburger -->
+            <button id="hamburger-btn" class="hamburger lg:hidden flex flex-col gap-[5px] p-2 rounded-lg hover:bg-gray-50 transition-colors" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="lg:hidden border-t border-gray-100 bg-white/95 backdrop-blur-xl">
+            <div class="container mx-auto px-6 py-6 flex flex-col space-y-2">
+                <a href="home.html" class="text-secondary font-black text-sm py-3 px-4 rounded-xl bg-secondary/5">Home</a>
+                <a href="services.html" class="text-gray-600 font-bold text-sm py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors">Services</a>
+                <a href="members.html" class="text-gray-600 font-bold text-sm py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors">Members</a>
+                <a href="contact.html" class="text-gray-600 font-bold text-sm py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors">Contact</a>
+                <div class="pt-4 border-t border-gray-100">
+                    <a href="#login" class="block text-center bg-gradient-to-r from-secondary to-primary text-white px-8 py-3 rounded-full font-extrabold shadow-md">Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--HERO SECTION — Side by Side Layout -->
+    <section id="home" class="gradient-bg py-24 md:py-32 overflow-hidden"> 
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-12">
+
+                <!-- LEFT: Text Content -->
+                <div class="flex-1 text-center lg:text-left hero-text-reveal">
+                    <div class="flex justify-center lg:justify-start mb-8">
+                        <div class="trust-bar">
+                            <span class="tag">CAP</span><span class="dot">●</span>
+                            <span class="tag">CLIA</span><span class="dot">●</span>
+                            <span class="tag">COLA</span><span class="dot">●</span>
+                            <span class="tag">HIPAA</span><span class="dot">●</span>
+                            <span class="tag">EMR-Ready</span>
+                        </div>
+                    </div>
+                    <h2 class="text-5xl md:text-6xl xl:text-7xl font-black text-dark mb-8 tracking-tighter leading-tight">
+                        Clinical Labs<br>
+                        <span class="gradient-text">Deserve Better</span><br>
+                        Software.
+                    </h2>
+                    <p class="text-lg md:text-xl text-gray-500 mb-10 max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed">
+                        Lab Nexis builds compliance-ready digital systems for clinical labs — from QMS portals and bioinformatics pipelines to AI-assisted audits. <span class="text-dark font-bold">Always with a human in the loop.</span>
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <a href="services.html" class="px-10 py-4 bg-dark text-white rounded-full font-bold hover:bg-gray-800 transition-all shadow-xl">Explore Services</a>
+                        <a href="/cdn-cgi/l/email-protection#036f62616d667b6a70436f6261706d667b6a702d606c6e" class="group px-10 py-4 bg-white border-2 border-gray-200 text-dark rounded-full font-bold hover:border-primary hover:text-primary transition-all shadow-sm flex items-center justify-center gap-2">
+                            Request a Demo
+                            <i class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Image -->
+                <div class="flex-1 relative hero-img-reveal">
+                    <!-- Glow effect behind image -->
+                    <div class="hero-glow"></div>
+                    <div class="relative z-10 p-3 bg-white rounded-[2.5rem] border border-gray-100 shadow-2xl hero-image-float">
+                        <img src="image/a1.png" alt="Lab Nexis Process Diagram" class="w-full h-auto rounded-[2rem] mx-auto">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- END HERO SECTION -->
+
+    <section class="py-16 bg-white text-center">
+        <div class="container mx-auto px-4 flex justify-center">
+            <div class="w-full max-w-3xl p-3 bg-white rounded-[2.5rem] border border-gray-100 shadow-2xl img-reveal">
+               <img src="image/lab.png" alt="Process Diagram" class="w-full h-auto rounded-[2rem] mx-auto">
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-28 bg-light/50"> 
+        <div class="container mx-auto px-4 text-center"> 
+            <div class="mb-20 reveal">
+                <span class="text-primary font-bold tracking-[0.2em] uppercase text-xs">Expertise & Innovation</span>
+                <h2 class="text-4xl md:text-6xl font-black text-dark mt-4">Lab Nexis Provides</h2>
+                <div class="w-20 h-2 bg-gradient-to-r from-secondary to-primary mx-auto mt-8 rounded-full"></div>
+            </div>
+            <!-- Zigzag layout -->
+            <div class="flex flex-col gap-6 text-left">
+
+                <!-- Card 1: image left, text right -->
+                <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row overflow-hidden">
+                    <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
+                        <img src="image/1.png" class="w-full h-full object-cover transition-transform duration-700">
+                    </div>
+                    <div class="md:w-3/5 p-6 flex flex-col justify-center">
+                        <div class="icon-box w-9 h-9 bg-blue-50 text-primary rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-file-contract"></i></div>
+                        <h3 class="text-base font-extrabold text-dark italic mb-2">Compliance & Tech Solutions</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed font-medium">Expert consulting for CLIA, CAP, and COLA regulatory standards and tech audits.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: text left, image right -->
+                <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row-reverse overflow-hidden">
+                    <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
+                        <img src="image/2.png" class="w-full h-full object-cover transition-transform duration-700">
+                    </div>
+                    <div class="md:w-3/5 p-6 flex flex-col justify-center">
+                        <div class="icon-box w-9 h-9 bg-purple-50 text-secondary rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-chart-line"></i></div>
+                        <h3 class="text-base font-extrabold text-dark italic mb-2">Digital QMS Tracking</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed font-medium">End-to-end digital monitoring for clinical lab quality management and workflow.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: image left, text right -->
+                <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row overflow-hidden">
+                    <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
+                        <img src="image/3.png" class="w-full h-full object-cover transition-transform duration-700">
+                    </div>
+                    <div class="md:w-3/5 p-6 flex flex-col justify-center">
+                        <div class="icon-box w-9 h-9 bg-green-50 text-green-600 rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="text-base font-extrabold text-dark italic mb-2">HIPAA Reporting (cLRS)</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed font-medium">Secure, encrypted reporting systems ensuring patient data privacy and HIPAA compliance.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: text left, image right -->
+                <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row-reverse overflow-hidden">
+                    <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
+                        <img src="image/4.png" class="w-full h-full object-cover transition-transform duration-700">
+                    </div>
+                    <div class="md:w-3/5 p-6 flex flex-col justify-center">
+                        <div class="icon-box w-9 h-9 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-robot"></i></div>
+                        <h3 class="text-base font-extrabold text-dark italic mb-2">"Real Lab Inspector"</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed font-medium">AI-powered virtual inspection tool to identify potential lab errors before they happen.</p>
+                    </div>
+                </div>
+
+                <!-- Card 5: image left, text right -->
+                <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row overflow-hidden">
+                    <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
+                        <img src="image/5.png" class="w-full h-full object-cover transition-transform duration-700">
+                    </div>
+                    <div class="md:w-3/5 p-6 flex flex-col justify-center">
+                        <div class="icon-box w-9 h-9 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-microscope"></i></div>
+                        <h3 class="text-base font-extrabold text-dark italic mb-2">Product Suite</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed font-medium">A complete collection of digital tools designed specifically for modern biotech labs.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div> 
+    </section>
+
+    <section class="py-24 bg-white reveal">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto bg-gradient-to-br from-light to-white p-12 md:p-20 rounded-[4rem] border border-gray-100 shadow-xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center text-center lg:text-left">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black text-dark mb-8 leading-tight">Lab Nexis <span class="text-primary">Delivers</span></h2>
+                        <div class="w-16 h-1.5 bg-secondary rounded-full mb-8 mx-auto lg:mx-0"></div>
+                        <p class="text-gray-400 font-medium italic text-lg">"Always with a human in the loop oversight."</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-50 flex items-center space-x-3"><div class="w-3 h-3 rounded-full bg-primary shadow-[0_0_10px_#2563eb]"></div><p class="font-bold text-dark text-xs uppercase tracking-wider">Digital Lab Solutions</p></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-50 flex items-center space-x-3"><div class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_10px_#7c3aed]"></div><p class="font-bold text-dark text-xs uppercase tracking-wider">Bioinformatics</p></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-50 flex items-center space-x-3"><div class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e]"></div><p class="font-bold text-dark text-xs uppercase tracking-wider">Predictive Models</p></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-50 flex items-center space-x-3"><div class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_#ef4444]"></div><p class="font-bold text-dark text-xs uppercase tracking-wider">AI Assistants</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-gradient-to-b from-white to-light reveal">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl md:text-6xl font-black text-dark mb-6 tracking-tighter leading-tight">All the Tools You Need to <br class="hidden md:block"><span class="gradient-text font-black">Succeed</span></h2>
+                <p class="text-xl md:text-2xl text-gray-500 mb-12 max-w-3xl mx-auto font-medium">Ready to transform your clinical workflow with AI-driven intelligence?</p>
+                <a href="mailto:labnexis@labsnexis.com" class="group inline-flex items-center space-x-4 bg-dark text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-primary transition-all shadow-2xl hover:-translate-y-1">
+                    <span>Request a demo</span>
+                    <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    <span class="ml-4 border-l border-white/20 pl-4 text-gray-400 group-hover:text-white">labnexis@labsnexis.com</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 bg-dark text-white">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-12 md:space-y-0">
+            <div class="text-center md:text-left">
+                <div class="flex items-center space-x-3 mb-4 justify-center md:justify-start text-xl font-black"> 
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center text-sm shadow-lg">LN</div> 
+                    <span class="tracking-tight">Lab Nexis</span> 
+                </div> 
+                <p class="text-gray-500 text-sm font-medium mb-2">Pioneering Secure Lab Intelligence & AI.</p>
+                <a href="mailto:labnexis@labsnexis.com" class="text-gray-400 text-sm font-medium hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start">
+                    <i class="fas fa-envelope text-xs"></i>
+                    labnexis@labsnexis.com
+                </a>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-gray-600 text-[11px] uppercase tracking-[0.3em] font-bold">&copy; 2026 Lab Nexis. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script> 
+        // Page transition
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('loaded');
+
+            // Hero reveal on load
+            setTimeout(function() {
+                document.querySelectorAll('.hero-text-reveal, .hero-img-reveal').forEach(function(el) {
+                    el.classList.add('active');
+                });
+            }, 100);
+        });
+
+        document.querySelectorAll('a[href]').forEach(function(link) {
+            const href = link.getAttribute('href');
+            if (href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('http')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.body.classList.add('page-fade-out');
+                    setTimeout(function() {
+                        window.location.href = href;
+                    }, 300);
+                });
+            }
+        });
+
+        // Mobile menu
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburgerBtn.addEventListener('click', function() {
+            hamburgerBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Reveal on scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) { reveals[i].classList.add("active"); }
+            }
+            // img-reveal
+            document.querySelectorAll(".img-reveal").forEach(function(el) {
+                if (el.getBoundingClientRect().top < window.innerHeight - 60) {
+                    el.classList.add("active");
+                }
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>
