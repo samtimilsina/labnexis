@@ -128,8 +128,6 @@
             box-shadow: 0 10px 20px -5px rgba(220, 39, 67, 0.5);
         }
 
-        
-        
         /* Hero image float animation */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
@@ -185,15 +183,14 @@
 
     <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100"> 
         <div class="container mx-auto px-6 py-4 flex justify-between items-center"> 
-            <a href="index.html" class="flex items-center space-x-3 group"> 
+            <a href="home.html" class="flex items-center space-x-3 group"> 
                 <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-secondary to-primary flex items-center justify-center text-white font-black shadow-lg">LN</div> 
                 <h1 class="text-2xl font-extrabold tracking-tight text-dark"><span class="text-secondary">Lab</span> <span class="text-primary">Nexis</span></h1> 
             </a> 
 
-            <!-- Desktop nav -->
             <nav class="hidden lg:flex items-center space-x-10 font-bold text-gray-500 text-sm"> 
                 <ul class="flex items-center space-x-10">
-                    <li><a href="index.html" class="nav-link text-secondary font-black">Home</a></li>
+                    <li><a href="home.html" class="nav-link text-secondary font-black">Home</a></li>
                     <li><a href="services.html" class="nav-link">Services</a></li>
                     <li><a href="members.html" class="nav-link">Members</a></li>
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
@@ -207,7 +204,6 @@
                 </div>
             </nav>
 
-            <!-- Mobile hamburger -->
             <button id="hamburger-btn" class="hamburger lg:hidden flex flex-col gap-[5px] p-2 rounded-lg hover:bg-gray-50 transition-colors" aria-label="Menu">
                 <span></span>
                 <span></span>
@@ -215,10 +211,9 @@
             </button>
         </div>
 
-        <!-- Mobile menu -->
         <div id="mobile-menu" class="lg:hidden border-t border-gray-100 bg-white/95 backdrop-blur-xl">
             <div class="container mx-auto px-6 py-6 flex flex-col space-y-2">
-                <a href="index.html" class="text-secondary font-black text-sm py-3 px-4 rounded-xl bg-secondary/5">Home</a>
+                <a href="home.html" class="text-secondary font-black text-sm py-3 px-4 rounded-xl bg-secondary/5">Home</a>
                 <a href="services.html" class="text-gray-600 font-bold text-sm py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors">Services</a>
                 <a href="members.html" class="text-gray-600 font-bold text-sm py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors">Members</a>
                 <a href="contact.html" class="text-gray-600 font-bold text-sm py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors">Contact</a>
@@ -229,44 +224,29 @@
         </div>
     </header>
 
-    <!--HERO SECTION — Side by Side Layout -->
     <section id="home" class="gradient-bg py-24 md:py-32 overflow-hidden"> 
         <div class="container mx-auto px-6">
             <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-12">
 
-                <!-- LEFT: Text Content -->
-                
-                    <section id="home" class="gradient-bg py-24 md:py-32 overflow-hidden"> 
-    <div class="container mx-auto px-6">
-        <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-12">
-
-            <!-- LEFT: Text Content -->
-            <div class="flex-1 text-center lg:text-left hero-text-reveal">
-                <div class="flex justify-center lg:justify-start mb-8">
-                    <!-- Trust Bar removed if needed -->
-                </div>
-
-                <h2 class="text-5xl md:text-6xl xl:text-7xl font-black text-dark mb-8 tracking-tighter leading-tight text-center lg:text-left">
-                    Clinical Labs<br>
-                    <span class="gradient-text">Deserve Better</span><br>
-                    Software.
-                </h2>
-
-                <p class="text-lg md:text-xl text-gray-500 mb-10 max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed">
-                    Lab Nexis builds compliance-ready digital systems for clinical labs — from QMS portals and bioinformatics pipelines to AI-assisted audits. <span class="text-dark font-bold">Always with a human in the loop.</span>
-                </p>
+                <div class="flex-1 text-center lg:text-left hero-text-reveal">
+                    <h2 class="text-5xl md:text-6xl xl:text-7xl font-black text-dark mb-8 tracking-tighter leading-tight">
+                        Clinical Labs<br>
+                        <span class="gradient-text">Deserve Better</span><br>
+                        Software.
+                    </h2>
+                    <p class="text-lg md:text-xl text-gray-500 mb-10 max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed">
+                        Lab Nexis builds compliance-ready digital systems for clinical labs — from QMS portals and bioinformatics pipelines to AI-assisted audits. <span class="text-dark font-bold">Always with a human in the loop.</span>
+                    </p>
                     <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
                         <a href="services.html" class="px-10 py-4 bg-dark text-white rounded-full font-bold hover:bg-gray-800 transition-all shadow-xl">Explore Services</a>
-                        <a href="/cdn-cgi/l/email-protection#036f62616d667b6a70436f6261706d667b6a702d606c6e" class="group px-10 py-4 bg-white border-2 border-gray-200 text-dark rounded-full font-bold hover:border-primary hover:text-primary transition-all shadow-sm flex items-center justify-center gap-2">
+                        <a href="mailto:labnexis@labsnexis.com" class="group px-10 py-4 bg-white border-2 border-gray-200 text-dark rounded-full font-bold hover:border-primary hover:text-primary transition-all shadow-sm flex items-center justify-center gap-2">
                             Request a Demo
                             <i class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- RIGHT: Image -->
                 <div class="flex-1 relative hero-img-reveal">
-                    <!-- Glow effect behind image -->
                     <div class="hero-glow"></div>
                     <div class="relative z-10 p-3 bg-white rounded-[2.5rem] border border-gray-100 shadow-2xl hero-image-float">
                         <img src="image/a1.png" alt="Lab Nexis Process Diagram" class="w-full h-auto rounded-[2rem] mx-auto">
@@ -276,7 +256,6 @@
             </div>
         </div>
     </section>
-    <!-- END HERO SECTION -->
 
     <section class="py-16 bg-white text-center">
         <div class="container mx-auto px-4 flex justify-center">
@@ -293,10 +272,8 @@
                 <h2 class="text-4xl md:text-6xl font-black text-dark mt-4">Lab Nexis Provides</h2>
                 <div class="w-20 h-2 bg-gradient-to-r from-secondary to-primary mx-auto mt-8 rounded-full"></div>
             </div>
-            <!-- Zigzag layout -->
+            
             <div class="flex flex-col gap-6 text-left">
-
-                <!-- Card 1: image left, text right -->
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
                         <img src="image/1.png" class="w-full h-full object-cover transition-transform duration-700">
@@ -308,7 +285,6 @@
                     </div>
                 </div>
 
-                <!-- Card 2: text left, image right -->
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row-reverse overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
                         <img src="image/2.png" class="w-full h-full object-cover transition-transform duration-700">
@@ -320,7 +296,6 @@
                     </div>
                 </div>
 
-                <!-- Card 3: image left, text right -->
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
                         <img src="image/3.png" class="w-full h-full object-cover transition-transform duration-700">
@@ -332,7 +307,6 @@
                     </div>
                 </div>
 
-                <!-- Card 4: text left, image right -->
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row-reverse overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
                         <img src="image/4.png" class="w-full h-full object-cover transition-transform duration-700">
@@ -344,7 +318,6 @@
                     </div>
                 </div>
 
-                <!-- Card 5: image left, text right -->
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
                         <img src="image/5.png" class="w-full h-full object-cover transition-transform duration-700">
@@ -355,7 +328,6 @@
                         <p class="text-gray-500 text-xs leading-relaxed font-medium">A complete collection of digital tools designed specifically for modern biotech labs.</p>
                     </div>
                 </div>
-
             </div>
         </div> 
     </section>
@@ -423,8 +395,6 @@
         // Page transition
         document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.add('loaded');
-
-            // Hero reveal on load
             setTimeout(function() {
                 document.querySelectorAll('.hero-text-reveal, .hero-img-reveal').forEach(function(el) {
                     el.classList.add('active');
@@ -432,20 +402,7 @@
             }, 100);
         });
 
-        document.querySelectorAll('a[href]').forEach(function(link) {
-            const href = link.getAttribute('href');
-            if (href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('http')) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.body.classList.add('page-fade-out');
-                    setTimeout(function() {
-                        window.location.href = href;
-                    }, 300);
-                });
-            }
-        });
-
-        // Mobile menu
+        // Mobile menu logic
         const hamburgerBtn = document.getElementById('hamburger-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         hamburgerBtn.addEventListener('click', function() {
@@ -453,7 +410,7 @@
             mobileMenu.classList.toggle('open');
         });
 
-        // Reveal on scroll
+        // Reveal on scroll logic
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -461,7 +418,6 @@
                 var elementTop = reveals[i].getBoundingClientRect().top;
                 if (elementTop < windowHeight - 80) { reveals[i].classList.add("active"); }
             }
-            // img-reveal
             document.querySelectorAll(".img-reveal").forEach(function(el) {
                 if (el.getBoundingClientRect().top < window.innerHeight - 60) {
                     el.classList.add("active");
