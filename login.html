@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -24,122 +25,235 @@
                 }
             }
         }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password-field');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        function openModal() {
+            document.getElementById('forgot-modal').classList.remove('hidden');
+            document.getElementById('forgot-modal').classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('forgot-modal').classList.add('hidden');
+            document.getElementById('forgot-modal').classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleResetSubmit(event) {
+            event.preventDefault();
+            const btn = document.getElementById('reset-btn');
+            const btnText = document.getElementById('btn-text');
+            const loader = document.getElementById('btn-loader');
+
+            btnText.innerText = "Sending...";
+            loader.classList.remove('hidden');
+            btn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('reset-form-container').classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
+                
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#7c3aed', '#2563eb', '#10b981']
+                });
+            }, 1500);
+        }
     </script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #fdfdff; }
+        body { font-family: 'Inter', sans-serif; }
         
-        .gradient-bg {
-            background: radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.08) 0px, transparent 50%),
-                        radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.08) 0px, transparent 50%);
+        /* Deep Dark Professional Background */
+        .page-bg {
+            background-color: #0f172a;
+            background-image: radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.08) 0px, transparent 40%),
+                              radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.08) 0px, transparent 40%);
         }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(226, 232, 240, 0.6);
-            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.1);
-        }
-
+        
         .input-focus:focus {
             border-color: #2563eb;
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
             outline: none;
         }
-
+        
         .gradient-text {
             background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
+        
         .btn-gradient {
             background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            filter: brightness(1.05);
+        }
+        
+        .social-btn {
+            transition: all 0.2s ease;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+        .social-btn:hover {
+            background-color: #e2e8f0;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
         }
 
-        .btn-gradient:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        .modal-content { animation: scaleIn 0.2s ease-out; }
+        @keyframes scaleIn {
+            from { transform: scale(0.98); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
-<body class="gradient-bg min-h-screen flex items-center justify-center p-6">
+<body class="page-bg min-h-screen flex flex-col">
 
-    <div class="w-full max-w-[450px]">
-        <div class="text-center mb-10">
-            <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-tr from-brand-purple to-brand-blue rounded-2xl text-white shadow-xl mb-4 transition-transform hover:rotate-6 cursor-pointer">
-                <i class="fas fa-layer-group text-2xl"></i>
-            </div>
-            <h1 class="text-3xl font-[900] tracking-tight text-brand-dark">Welcome <span class="gradient-text">Back</span></h1>
-            <p class="text-slate-400 font-medium text-sm mt-2 font-semibold">Sign in to your Lab Nexis dashboard</p>
+    <header class="sticky top-0 z-50 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800/40"> 
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center"> 
+            <a href="index.html" class="flex items-center space-x-3"> 
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-purple to-brand-blue flex items-center justify-center text-white font-bold shadow-lg">LN</div> 
+                <h1 class="text-xl font-black tracking-tight text-white">Lab<span class="text-brand-blue">Nexis</span></h1> 
+            </a> 
+
+            <nav class="hidden md:flex items-center space-x-8 font-bold text-slate-400 text-[11px] uppercase tracking-[0.15em]"> 
+                <a href="index.html" class="hover:text-white transition-all">Home</a>
+                <a href="subscription.html" class="hover:text-white transition-all">Pricing</a>
+                <a href="contact.html" class="hover:text-white transition-all">Contact</a>
+            </nav>
+
+            <button onclick="toggleMenu()" class="md:hidden text-slate-400 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
         </div>
+    </header>
 
-        <div class="glass-panel rounded-[2.5rem] p-8 md:p-10">
-            <form action="#" class="space-y-6">
-                <div>
-                    <label class="block text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Work Email</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-300">
-                            <i class="far fa-envelope text-sm"></i>
-                        </span>
-                        <input type="email" placeholder="name@company.com" class="w-full pl-11 pr-4 py-4 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 placeholder:text-slate-300 input-focus transition-all">
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between items-center mb-2 ml-1">
-                        <label class="text-[11px] font-black uppercase tracking-widest text-slate-400">Password</label>
-                        <a href="#" class="text-[10px] font-black uppercase tracking-widest text-brand-blue hover:underline">Forgot?</a>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-300">
-                            <i class="fas fa-lock text-sm"></i>
-                        </span>
-                        <input type="password" placeholder="••••••••" class="w-full pl-11 pr-12 py-4 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 placeholder:text-slate-300 input-focus transition-all">
-                        <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-300 hover:text-slate-500">
-                            <i class="far fa-eye text-sm"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex items-center space-x-2 ml-1">
-                    <input type="checkbox" id="remember" class="w-4 h-4 rounded border-slate-200 text-brand-blue focus:ring-brand-blue transition-all cursor-pointer">
-                    <label for="remember" class="text-xs font-bold text-slate-500 cursor-pointer">Stay signed in for 30 days</label>
-                </div>
-
-                <button type="submit" class="w-full btn-gradient py-4 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl mt-4">
-                    Secure Login
-                </button>
-            </form>
-
-            <div class="mt-10 relative">
-                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-100"></div></div>
-                <div class="relative flex justify-center text-[10px] uppercase font-black tracking-widest"><span class="bg-white px-4 text-slate-300">Or continue with</span></div>
+    <main class="flex-grow flex items-center justify-center p-6 py-12">
+        <div class="w-full max-w-[440px]">
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-black tracking-tight text-white md:text-4xl leading-tight">
+                    LAB <span class="gradient-text">NEXIS</span>
+                </h1>
+                <p class="text-slate-400 font-medium mt-3 text-sm">Sign in to manage your digital laboratory</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 mt-8">
-                <button class="flex items-center justify-center py-3 px-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-all font-bold text-xs text-slate-600 space-x-2">
-                    <i class="fab fa-google text-red-500"></i>
-                    <span>Google</span>
-                </button>
-                <button class="flex items-center justify-center py-3 px-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-all font-bold text-xs text-slate-600 space-x-2">
-                    <i class="fab fa-apple text-slate-900 text-sm"></i>
-                    <span>Apple</span>
-                </button>
+            <div class="bg-white rounded-2xl p-8 md:p-12 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] border border-slate-200 relative">
+                
+                <form action="#" class="space-y-6">
+                    <div>
+                        <label class="block text-[11px] font-black uppercase tracking-widest text-black mb-2.5 ml-1">Email Address</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                <i class="far fa-envelope text-sm"></i>
+                            </span>
+                            <input type="email" placeholder="john@gmail.com" class="w-full pl-11 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 placeholder:text-slate-400 input-focus transition-all">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2.5 ml-1">
+                            <label class="text-[11px] font-black uppercase tracking-widest text-black">Password</label>
+                            <button type="button" onclick="openModal()" class="text-[10px] font-black uppercase tracking-widest text-brand-blue hover:text-brand-purple">Reset?</button>
+                        </div>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                <i class="fas fa-lock text-sm"></i>
+                            </span>
+                            <input id="password-field" type="password" placeholder="••••••••" class="w-full pl-11 pr-12 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 placeholder:text-slate-400 input-focus transition-all">
+                            <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-600 focus:outline-none">
+                                <i id="eye-icon" class="far fa-eye text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full btn-gradient py-4 text-white rounded-xl font-black text-xs uppercase tracking-[0.2em] shadow-lg mt-2">
+                     Login
+                    </button>
+                </form>
+
+                <div class="mt-10 relative">
+                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-100"></div></div>
+                    <div class="relative flex justify-center text-[10px] uppercase font-black tracking-widest text-slate-400">
+                        <span class="bg-white px-4 text-black"> Or Continue with your</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mt-8">
+                    <button class="social-btn flex items-center justify-center py-3 px-4 rounded-xl font-bold text-xs text-slate-700 space-x-2.5">
+                        <i class="fab fa-google text-red-500 text-base"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="social-btn flex items-center justify-center py-3 px-4 rounded-xl font-bold text-xs text-slate-700 space-x-2.5">
+                        <i class="fab fa-apple text-slate-900 text-lg"></i>
+                        <span>Apple</span>
+                    </button>
+                </div>
             </div>
+            
+            <p class="text-center mt-10 text-sm font-semibold text-slate-500 tracking-tight">
+                New user? <a href="subscription.html" class="text-brand-blue hover:text-white font-extrabold ml-1 transition-colors">Create an Account</a>
+            </p>
         </div>
+    </main>
 
-        <p class="text-center mt-10 text-xs font-bold text-slate-400 tracking-tight">
-            Don't have an account? <a href="subscription.html" class="text-brand-blue hover:underline">Pick a plan to start</a>
-        </p>
+    <div id="forgot-modal" onclick="if(event.target == this) closeModal()" class="hidden fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm items-center justify-center p-6">
+        <div class="modal-content bg-white w-full max-w-[400px] rounded-2xl p-8 md:p-10 relative shadow-2xl border border-slate-100 overflow-hidden">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 transition-colors">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+            
+            <div id="reset-form-container">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-black text-black">Reset <span class="gradient-text">Access</span></h2>
+                    <p class="text-slate-500 text-sm font-semibold mt-2">Verify your email to continue.</p>
+                </div>
+                <form onsubmit="handleResetSubmit(event)" class="space-y-6">
+                    <div>
+                        <label class="block text-[11px] font-black uppercase tracking-widest text-black mb-2.5 ml-1">Email</label>
+                        <input type="email" required placeholder="john@gmail.com" class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 input-focus transition-all">
+                    </div>
+                    <button type="submit" id="reset-btn" class="w-full btn-gradient py-4 text-white rounded-xl font-black text-xs uppercase tracking-[0.2em] shadow-lg flex items-center justify-center space-x-2.5">
+                        <i id="btn-loader" class="fas fa-circle-notch fa-spin hidden"></i>
+                        <span id="btn-text">Verify Email</span>
+                    </button>
+                </form>
+            </div>
 
-        <div class="mt-12 flex justify-center items-center space-x-6 text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
-            <span class="flex items-center"><i class="fas fa-shield-alt mr-2"></i> ISO 27001</span>
-            <span class="flex items-center"><i class="fas fa-lock mr-2"></i> SSL Encrypted</span>
+            <div id="success-message" class="hidden text-center py-4">
+                <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-100">
+                    <i class="fas fa-check text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-black text-black mb-2">Email Sent</h2>
+                <p class="text-slate-500 text-sm font-semibold leading-relaxed">Check your workspace inbox for instructions.</p>
+                <button onclick="closeModal()" class="mt-8 text-[11px] font-black uppercase tracking-widest text-brand-blue hover:underline">Return to Login</button>
+            </div>
         </div>
     </div>
-
 </body>
 </html>
