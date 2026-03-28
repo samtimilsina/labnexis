@@ -29,7 +29,6 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #fdfdff; }
         
-        /* Premium UI Cards */
         .premium-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -55,7 +54,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Payment Icon Colors */
         .fa-cc-visa { color: #1a1f71; }
         .fa-cc-mastercard { color: #eb001b; }
         .fa-cc-paypal { color: #003087; }
@@ -67,12 +65,12 @@
 
     <nav class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-slate-100">
         <div class="container mx-auto px-8 py-5 flex justify-between items-center">
-            <div class="flex items-center space-x-3 group">
+            <a href="index.html" class="flex items-center space-x-3 group cursor-pointer">
                 <div class="w-10 h-10 bg-gradient-to-tr from-brand-purple to-brand-blue rounded-xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:rotate-3">
                     <i class="fas fa-layer-group text-lg"></i>
                 </div>
                 <span class="text-xl font-extrabold tracking-tight">Lab <span class="gradient-text">Nexis</span></span>
-            </div>
+            </a>
             <a href="index.html" class="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-brand-blue transition-colors">Return to Dashboard</a>
         </div>
     </nav>
@@ -128,7 +126,8 @@
 
                 <div class="mb-10 mt-4">
                     <span class="inline-block px-4 py-1.5 bg-emerald-50 text-brand-emerald rounded-lg text-[10px] font-black uppercase tracking-widest mb-6">Professional Suite</span>
-                    <div class="h-8 mb-1"></div> <div class="flex items-baseline mt-2">
+                    <div class="h-8 mb-1"></div> 
+                    <div class="flex items-baseline mt-2">
                         <span class="text-4xl font-[900] text-slate-900">$</span>
                         <span class="text-7xl font-[900] text-slate-900 tracking-tighter">2,250</span>
                         <span class="text-slate-400 font-bold ml-2 text-lg">/3 mo</span>
