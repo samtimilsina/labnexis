@@ -147,9 +147,10 @@
             btn.classList.add('opacity-80', 'cursor-not-allowed');
 
             setTimeout(() => {
-                alert('Success! Your account is being prepared.');
+                alert('Your Account has been created.');
                 btn.innerHTML = originalText;
                 btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                // Optional: window.location.href = 'login.html'; // Redirect to login after success
             }, 1800);
         });
     </script>
