@@ -84,37 +84,30 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; }
-        
-        /* Deep Dark Professional Background */
         .page-bg {
             background-color: #0f172a;
             background-image: radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.08) 0px, transparent 40%),
                               radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.08) 0px, transparent 40%);
         }
-        
         .input-focus:focus {
             border-color: #2563eb;
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
             outline: none;
         }
-        
         .gradient-text {
             background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
         .btn-gradient {
             background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
         .btn-gradient:hover {
             transform: translateY(-1px);
             box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
             filter: brightness(1.05);
         }
-        
         .social-btn {
             transition: all 0.2s ease;
             background-color: #f8fafc;
@@ -125,7 +118,6 @@
             border-color: #cbd5e1;
             transform: translateY(-1px);
         }
-
         .modal-content { animation: scaleIn 0.2s ease-out; }
         @keyframes scaleIn {
             from { transform: scale(0.98); opacity: 0; }
@@ -164,7 +156,6 @@
             </div>
 
             <div class="bg-white rounded-2xl p-8 md:p-12 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] border border-slate-200 relative">
-                
                 <form action="#" class="space-y-6">
                     <div>
                         <label class="block text-[11px] font-black uppercase tracking-widest text-black mb-2.5 ml-1">Email Address</label>
@@ -217,7 +208,7 @@
             </div>
             
             <p class="text-center mt-10 text-sm font-semibold text-slate-500 tracking-tight">
-                New user? <a href="subscription.html" class="text-brand-blue hover:text-white font-extrabold ml-1 transition-colors">Create an Account</a>
+                New user? <a href="account.html" class="text-brand-blue hover:text-white font-extrabold ml-1 transition-colors">Create an Account</a>
             </p>
         </div>
     </main>
