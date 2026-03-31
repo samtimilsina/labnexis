@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Lab Nexis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            purple: '#7c3aed',
+                            blue: '#2563eb',
+                            dark: '#000000'
+                        }
+                    }
+                }
+            }
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password-field');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #000000; }
+        .page-bg { 
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.15) 0px, transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.15) 0px, transparent 50%); 
+        }
+        .input-focus:focus { border-color: #7c3aed; box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1); outline: none; }
+        .gradient-text { background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-gradient { background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%); transition: all 0.3s ease; }
+        .btn-gradient:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(124, 58, 237, 0.4); filter: brightness(1.1); }
+        .social-btn { transition: all 0.2s ease; background-color: #111827; border: 1px solid #1f2937; }
+        .social-btn:hover { background-color: #1f2937; border-color: #374151; transform: translateY(-1px); }
+    </style>
+</head>
+<body class="page-bg min-h-screen flex flex-col text-white">
+
+    <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-xl border-b border-white/10"> 
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center"> 
+            <a href="index.html" class="flex items-center space-x-3 group"> 
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-purple to-brand-blue flex items-center justify-center text-white font-bold shadow-[0_0_20px_rgba(124,58,237,0.3)] group-hover:scale-105 transition-transform">LN</div> 
+                <h1 class="text-xl font-black tracking-tight text-white">Lab<span class="text-brand-blue">Nexis</span></h1> 
+            </a> 
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-6 py-12">
+        <div class="w-full max-w-[460px]">
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-black tracking-tight text-white leading-tight">
+                    Create <span class="gradient-text">Account</span>
+                </h1>
+                <p class="text-slate-400 font-medium mt-3 text-sm">Experience the future of laboratory management</p>
+            </div>
+
+            <div class="bg-slate-900/40 backdrop-blur-2xl rounded-3xl p-8 md:p-10 shadow-[0_0_80px_-15px_rgba(0,0,0,1)] border border-white/10 relative">
+                
+                <form id="signup-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2.5 ml-1">Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required 
+                            class="w-full px-4 py-3.5 bg-black/50 border border-white/10 rounded-xl text-sm font-medium text-white placeholder:text-slate-600 input-focus transition-all">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2.5 ml-1">Email Address</label>
+                        <input type="email" id="email" placeholder="john@labnexis.com" required 
+                            class="w-full px-4 py-3.5 bg-black/50 border border-white/10 rounded-xl text-sm font-medium text-white placeholder:text-slate-600 input-focus transition-all">
+                    </div>
+
+                    <div>
+                        <label for="password-field" class="block text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2.5 ml-1">Password</label>
+                        <div class="relative">
+                            <input id="password-field" type="password" placeholder="••••••••" required minlength="8"
+                                class="w-full pl-4 pr-12 py-3.5 bg-black/50 border border-white/10 rounded-xl text-sm font-medium text-white placeholder:text-slate-600 input-focus transition-all">
+                            <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 hover:text-white transition-colors">
+                                <i id="eye-icon" class="far fa-eye text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-3 py-1">
+                        <div class="flex items-center h-5">
+                            <input type="checkbox" id="terms" required class="h-4 w-4 rounded border-white/10 bg-black text-brand-purple focus:ring-brand-purple">
+                        </div>
+                        <label for="terms" class="text-[11px] text-slate-500 font-medium leading-relaxed">
+                            I agree to the <a href="#" class="text-white hover:text-brand-purple underline decoration-brand-purple/30">Terms of Service</a> and <a href="#" class="text-white hover:text-brand-purple underline decoration-brand-purple/30">Privacy Policy</a>.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="w-full btn-gradient py-4 text-white rounded-xl font-black text-xs uppercase tracking-[0.25em] shadow-[0_10px_20px_-5px_rgba(124,58,237,0.4)] mt-2">
+                        Create My Account
+                    </button>
+                </form>
+
+                <div class="mt-10 relative">
+                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-white/5"></div></div>
+                    <div class="relative flex justify-center text-[10px] uppercase font-black tracking-[0.2em] text-slate-600">
+                        <span class="bg-[#0b1120] px-4">Secure Sign Up</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mt-8">
+                    <button class="social-btn flex items-center justify-center py-3.5 rounded-xl font-bold text-xs text-slate-300 space-x-2.5">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4" alt="Google">
+                        <span>Google</span>
+                    </button>
+                    <button class="social-btn flex items-center justify-center py-3.5 rounded-xl font-bold text-xs text-slate-300 space-x-2.5">
+                        <i class="fab fa-apple text-lg text-white"></i>
+                        <span>Apple ID</span>
+                    </button>
+                </div>
+            </div>
+            
+            <p class="text-center mt-10 text-sm font-semibold text-slate-500 tracking-tight">
+                Already have an account? <a href="login.html" class="text-white hover:text-brand-blue font-extrabold ml-1 transition-colors underline underline-offset-4 decoration-brand-blue/50">Login here</a>
+            </p>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(e){
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Initializing...';
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+
+            setTimeout(() => {
+                alert('Success! Your secure lab environment is being prepared.');
+                btn.innerHTML = originalText;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+            }, 1800);
+        });
+    </script>
+</body>
+</html>
