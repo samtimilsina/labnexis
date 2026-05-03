@@ -251,7 +251,7 @@
                 <div class="flex-1 relative hero-img-reveal">
                     <div class="hero-glow"></div>
                     <div class="relative z-10 p-3 bg-white rounded-[2.5rem] border border-gray-100 shadow-2xl hero-image-float">
-                        <img src="image/a1.png" alt="Lab Nexis Process Diagram" class="w-full h-auto rounded-[2rem] mx-auto">
+                        <img src="files/theme/a1.png" alt="Lab Nexis Process Diagram" class="w-full h-auto rounded-[2rem] mx-auto">
                     </div>
                 </div>
 
@@ -262,7 +262,7 @@
     <section class="py-16 bg-white text-center">
         <div class="container mx-auto px-4 flex justify-center">
             <div class="w-full max-w-3xl p-3 bg-white rounded-[2.5rem] border border-gray-100 shadow-2xl img-reveal">
-               <img src="image/lab.png" alt="Process Diagram" class="w-full h-auto rounded-[2rem] mx-auto">
+               <img src="files/theme/lab.png" alt="Process Diagram" class="w-full h-auto rounded-[2rem] mx-auto">
             </div>
         </div>
     </section>
@@ -278,7 +278,7 @@
             <div class="flex flex-col gap-6 text-left">
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
-                        <img src="image/1.png" class="w-full h-full object-cover transition-transform duration-700">
+                        <img src="files/theme/1.png" class="w-full h-full object-cover transition-transform duration-700">
                     </div>
                     <div class="md:w-3/5 p-6 flex flex-col justify-center">
                         <div class="icon-box w-9 h-9 bg-blue-50 text-primary rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-file-contract"></i></div>
@@ -289,7 +289,7 @@
 
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row-reverse overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
-                        <img src="image/2.png" class="w-full h-full object-cover transition-transform duration-700">
+                        <img src="files/theme/2.png" class="w-full h-full object-cover transition-transform duration-700">
                     </div>
                     <div class="md:w-3/5 p-6 flex flex-col justify-center">
                         <div class="icon-box w-9 h-9 bg-purple-50 text-secondary rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-chart-line"></i></div>
@@ -300,7 +300,7 @@
 
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
-                        <img src="image/3.png" class="w-full h-full object-cover transition-transform duration-700">
+                        <img src="files/theme/3.png" class="w-full h-full object-cover transition-transform duration-700">
                     </div>
                     <div class="md:w-3/5 p-6 flex flex-col justify-center">
                         <div class="icon-box w-9 h-9 bg-green-50 text-green-600 rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-shield-alt"></i></div>
@@ -311,7 +311,7 @@
 
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row-reverse overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
-                        <img src="image/4.png" class="w-full h-full object-cover transition-transform duration-700">
+                        <img src="files/theme/4.png" class="w-full h-full object-cover transition-transform duration-700">
                     </div>
                     <div class="md:w-3/5 p-6 flex flex-col justify-center">
                         <div class="icon-box w-9 h-9 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-robot"></i></div>
@@ -322,7 +322,7 @@
 
                 <div class="service-card group rounded-2xl reveal flex flex-col md:flex-row overflow-hidden">
                     <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
-                        <img src="image/5.png" class="w-full h-full object-cover transition-transform duration-700">
+                        <img src="files/theme/5.png" class="w-full h-full object-cover transition-transform duration-700">
                     </div>
                     <div class="md:w-3/5 p-6 flex flex-col justify-center">
                         <div class="icon-box w-9 h-9 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center mb-3 text-sm shadow-sm transition-all duration-500"><i class="fas fa-microscope"></i></div>
@@ -393,21 +393,41 @@
         </div>
     </footer>
 
+    <script> 
+        // Page transition
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('loaded');
+            setTimeout(function() {
+                document.querySelectorAll('.hero-text-reveal, .hero-img-reveal').forEach(function(el) {
+                    el.classList.add('active');
+                });
+            }, 100);
+        });
 
-     <script>
-function sendHeight() {
-  const height = document.body.scrollHeight;
-  window.parent.postMessage({ type: "resize", height: height }, "*");
-}
+        // Mobile menu logic
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburgerBtn.addEventListener('click', function() {
+            hamburgerBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
 
-window.addEventListener("load", () => {
-  sendHeight();
-  setInterval(sendHeight, 500);
-});
-
-window.addEventListener("resize", sendHeight);
-
+        // Reveal on scroll logic
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) { reveals[i].classList.add("active"); }
+            }
+            document.querySelectorAll(".img-reveal").forEach(function(el) {
+                if (el.getBoundingClientRect().top < window.innerHeight - 60) {
+                    el.classList.add("active");
+                }
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
     </script>
-  
 </body>
 </html>
